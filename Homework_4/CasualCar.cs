@@ -23,7 +23,7 @@ namespace Homework_4
 
         public override void Step()
         {
-            while (!Game.IsGameEnded())
+            while (Game.GameIsOn)
             {
                 Way += Speed;
                 Console.WriteLine($"CasualCar {Name} current way: {Way}");
@@ -41,6 +41,11 @@ namespace Homework_4
                         break;
                     default:
                         break;
+                }
+
+                if (Way >= Game.Finish)
+                {
+                    Game.CallEvent(this, new EndGameEventArgs(Name));
                 }
                 Thread.Sleep(300);
             }

@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Homework_4
 {
-    public delegate bool EndGameEventHandler(object sender, EndGameEventArgs e);
+    public delegate void EndGameEventHandler(object sender, EndGameEventArgs e);
     public class Game
     {
         public static int Finish { get; } = 1000;
         private static List<Car> _cars;
         public static List<Car> Cars => _cars;
+        public static bool GameIsOn { get; private set; } = true;
         public static event EndGameEventHandler GameEnded;
 
         public Game()
@@ -44,20 +45,18 @@ namespace Homework_4
                 Console.WriteLine($"{car.Name}");
                 _cars.Add(car);
             }
+
+            GameEnded += EndGame;
         }
 
-        public static bool IsGameEnded()
+        public static void CallEvent(object sender, EndGameEventArgs e)
         {
-            Car winner = _cars.Find(c => c.Way >= Finish);
-            if (winner != null)
-            {
-                Console.WriteLine($"{winner.Name} has won the race!!!");
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            GameEnded?.Invoke(sender, e);
+        }
+        private static void EndGame(object sender, EndGameEventArgs e)
+        {
+            GameIsOn = false;
+            Console.WriteLine($"Car {e.Winner} has won the race!!!");
         }
     }
 }

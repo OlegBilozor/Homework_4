@@ -21,7 +21,7 @@ namespace Homework_4
         }
         public override void Step()
         {
-            while (!Game.IsGameEnded())
+            while (Game.GameIsOn)
             {
                 Way += Speed;
                 Console.WriteLine($"Truck {Name} current way: {Way}");
@@ -39,6 +39,10 @@ namespace Homework_4
                         Deceleration();
                         Console.WriteLine($"Truck {Name} performs deceleration");
                         break;
+                }
+                if (Way >= Game.Finish)
+                {
+                    Game.CallEvent(this, new EndGameEventArgs(Name));
                 }
                 Thread.Sleep(400);
             }

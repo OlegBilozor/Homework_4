@@ -24,7 +24,7 @@ namespace Homework_4
 
         public override void Step()
         {
-            while (!Game.IsGameEnded())
+            while (Game.GameIsOn)
             {
                 Way += Speed;
                 Console.WriteLine($"RacingCar {Name} current way: {Way}");
@@ -42,6 +42,10 @@ namespace Homework_4
                         Acceleration();
                         Console.WriteLine($"RacingCar {Name} performs acceleration");
                         break;
+                }
+                if (Way >= Game.Finish)
+                {
+                    Game.CallEvent(this, new EndGameEventArgs(Name));
                 }
                 Thread.Sleep(200);
             }

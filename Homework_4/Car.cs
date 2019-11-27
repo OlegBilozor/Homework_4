@@ -25,9 +25,7 @@ namespace Homework_4
 
         public void Acceleration()
         {
-            Random rnd= new Random(DateTime.Now.Millisecond);
-            int chance = rnd.Next(3);
-            if (chance == 2 && Speed < MaxSpeed)
+            if (Speed < MaxSpeed)
             {
                 if (Speed + SpeedInc < MaxSpeed)
                     Speed += SpeedInc;
@@ -38,9 +36,7 @@ namespace Homework_4
 
         public void Deceleration()
         {
-            Random rnd = new Random(DateTime.Now.Millisecond);
-            int chance = rnd.Next(3);
-            if (chance == 2 && Speed > 0)
+            if (Speed > 0)
             {
                 if (Speed - SpeedDec >= 0)
                     Speed -= SpeedDec;
